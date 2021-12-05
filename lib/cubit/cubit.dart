@@ -15,8 +15,6 @@ class NewsCubit extends Cubit<NewsStates> {
 
   static NewsCubit get(context) => BlocProvider.of(context);
 
-
-
   int currentIndex = 0;
 
   List<Widget> screens = [
@@ -31,13 +29,13 @@ class NewsCubit extends Cubit<NewsStates> {
     BottomNavigationBarItem(icon: Icon(Icons.sports), label: 'sports'),
   ];
 
-  bool? isDark = false;
+  bool isDark = false;
 
-   void changeAppMode({required bool? fromShared}){
+   void changeAppMode(bool fromShared){
      if(fromShared != null){
-       isDark = fromShared;
+       isDark = !fromShared;
      }else{
-       isDark = !isDark!;
+       isDark = !isDark;
      }
     CacheHelper.putData('isDark', isDark).then((value){
       emit(AppChangeModeState());
@@ -116,5 +114,24 @@ class NewsCubit extends Cubit<NewsStates> {
     } else {
       emit(NewsGetSportsStateSuccess());
     }
+  }
+
+  List<dynamic> search = [];
+
+  void getSearch(String value) {
+    emit(NewsGetSearchLoadingState());
+    search = [];
+      DioHelper.getData(url: 'v2/everything', query: {
+        'q': '$value',
+        'apiKey': 'a2d2e598ef064e3e9a4a628ac2cdb815',
+      }).then((value) {
+        search = value.data['articles'];
+        print(search[0]['title']);
+        emit(NewsGetSearchStateSuccess());
+      }).catchError((onError) {
+        print(onError);
+        emit(NewsGetSearchStateFail(onError.toString()));
+      });
+
   }
 }

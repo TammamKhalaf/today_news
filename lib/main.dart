@@ -13,5 +13,7 @@ void main() async{
 
   bool? isDark = CacheHelper.getData('isDark');
 
-  runApp(NewsLayout(isDark:isDark,));
+  print('isDark = $isDark');
+
+  runApp(NewsLayout(isDark: isDark,));
 }

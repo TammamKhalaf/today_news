@@ -33,6 +33,16 @@ class NewsGetSportsStateFail extends NewsStates{
   NewsGetSportsStateFail(this.error);
 }
 
+//search
+class NewsGetSearchLoadingState extends NewsStates{}
+
+class NewsGetSearchStateSuccess extends NewsStates{}
+
+class NewsGetSearchStateFail extends NewsStates{
+  final String error;
+  NewsGetSearchStateFail(this.error);
+}
+
 
 //dark mode light mode
 class AppChangeModeState extends NewsStates{}

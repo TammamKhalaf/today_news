@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget buildArticleItem(article,context) => Padding(
+Widget buildArticleItem(article, context) => Padding(
       padding: EdgeInsetsDirectional.all(20.0),
       child: Row(
         children: [
@@ -51,4 +51,51 @@ Widget myDivider() => Divider(
       thickness: 2,
       indent: 10,
       endIndent: 10,
+    );
+
+Widget defaultFormField({
+  required TextEditingController controller,
+  required TextInputType type,
+  ValueChanged<String>? onSubmit,
+  ValueChanged<String>? onChange,
+  GestureTapCallback? onTap,
+  bool isPassword = false,
+  FormFieldValidator<String>? validate,
+  required String label,
+  required IconData prefix,
+  IconData? suffix,
+  VoidCallback? suffixPressed,
+  bool isClickable = true,
+}) =>
+    TextFormField(
+      controller: controller,
+      keyboardType: type,
+      obscureText: isPassword,
+      enabled: isClickable,
+      onFieldSubmitted: onSubmit,
+      onChanged: onChange,
+      onTap: onTap,
+      validator: validate,
+      decoration: InputDecoration(
+        labelText: label,
+        prefixIcon: Icon(
+          prefix,
+        ),
+        suffixIcon: suffix != null
+            ? IconButton(
+                onPressed: suffixPressed,
+                icon: Icon(
+                  suffix,
+                ),
+              )
+            : null,
+        border: const OutlineInputBorder(),
+      ),
+    );
+
+void navigateTo(context, widget) => Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => widget,
+      ),
     );
