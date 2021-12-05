@@ -15,5 +15,9 @@ void main() async{
 
   print('isDark = $isDark');
 
+  if(isDark == null){
+    isDark = false;
+  }
+
   runApp(NewsLayout(isDark: isDark,));
 }
